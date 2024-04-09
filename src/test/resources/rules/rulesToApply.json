@@ -1,0 +1,79 @@
+{
+  "010": [
+    {
+      "entityPerRepeatedSubfield": true,
+      "entity": [
+        {
+          "target": "identifiers.identifierTypeId",
+          "description": "Type for LCCN",
+          "subfield": [
+            "a"
+          ],
+          "rules": [
+            {
+              "conditions": [
+                {
+                  "type": "set_identifier_type_id_by_name",
+                  "parameter": {
+                    "name": "LCCN"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "target": "identifiers.value",
+          "description": "LCCN",
+          "subfield": [
+            "a"
+          ],
+          "rules": [
+            {
+              "conditions": [
+                {
+                  "type": "trim"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "target": "identifiers.identifierTypeId",
+          "description": "Type for Cancelled LCCN",
+          "subfield": [
+            "z"
+          ],
+          "rules": [
+            {
+              "conditions": [
+                {
+                  "type": "set_identifier_type_id_by_name",
+                  "parameter": {
+                    "name": "Cancelled LCCN"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "target": "identifiers.value",
+          "description": "Type for Cancelled LCCN",
+          "subfield": [
+            "z"
+          ],
+          "rules": [
+            {
+              "conditions": [
+                {
+                  "type": "trim"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "target": "identifiers.value",
+  "description": "Type for Cancelled LCCN",
+  "subfield": [
+    "z"
+  ],
+  "rules": [
+    {
+      "conditions": [
+        {
+          "type": "trim"
+        }
+      ]
+    }
+  ]
+}

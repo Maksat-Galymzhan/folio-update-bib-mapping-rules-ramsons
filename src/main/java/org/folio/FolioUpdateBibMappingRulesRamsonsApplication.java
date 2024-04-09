@@ -1,6 +1,7 @@
 package org.folio;
 
 import lombok.extern.slf4j.Slf4j;
+import org.folio.exception.MarcRulesNotFoundException;
 import org.folio.service.UpdateMappingRulesService;
 import org.folio.util.FileWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class FolioUpdateBibMappingRulesRamsonsApplication implements CommandLine
 	}
 
 	@Override
-	public void run(String... args) {
+	public void run(String... args) throws MarcRulesNotFoundException {
 		if (args.length != 1) {
 			exitWithError("Please specify all parameters: configuration.json file path");
 		}

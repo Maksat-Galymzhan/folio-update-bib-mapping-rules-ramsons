@@ -1,13 +1,13 @@
 package org.folio.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Objects;
 
 import lombok.extern.slf4j.Slf4j;
+import org.folio.exception.MarcRulesNotFoundException;
 
 @Slf4j
 public class MappingRulesUtil {
@@ -16,18 +16,25 @@ public class MappingRulesUtil {
     private static final String ENTITY = "entity";
     private static final String Z_SUBFIELD = "z";
     private static final String SUBFIELD = "subfield";
+    private static final String MARC_BIB_ENTITY_FOR_ID = "rules/marcbib010$z_type_id.json";
+    private static final String MARC_BIB_ENTITY_FOR_VALUE = "rules/marcbib010$z_value.json";
 
-    public static void updateMappingRules(String marcFieldRule, ObjectNode targetMappingRules) {
-        ObjectNode marcBibTypeId = Objects.requireNonNull(FileWorker.getJsonObject("rules/marcbib010$z_type_id.json"));
-        ObjectNode marcBibValue = Objects.requireNonNull(FileWorker.getJsonObject("rules/marcbib010$z_value.json"));
+    public static void updateMappingRules(String marcFieldRule, ObjectNode targetMappingRules) throws MarcRulesNotFoundException {
+        ObjectNode marcBibTypeId = Objects.requireNonNull(FileWorker.getJsonObject(MARC_BIB_ENTITY_FOR_ID));
+        ObjectNode marcBibValue = Objects.requireNonNull(FileWorker.getJsonObject(MARC_BIB_ENTITY_FOR_VALUE));
 
         JsonNode marcRulesNode = targetMappingRules.get(marcFieldRule);
         if (marcRulesNode == null || !marcRulesNode.isArray() || marcRulesNode.isEmpty()) {
             log.warn("No rules found for MARC field \"{}\"", marcFieldRule);
+            throw new MarcRulesNotFoundException("Target rule from the host not found");
+        } else {
+            try {
+                addTarget(marcRulesNode, marcBibTypeId);
+                addTarget(marcRulesNode, marcBibValue);
+            } catch (Exception e) {
+                log.warn("Cannot update Cancelled LCCN field due to {}", e.getMessage());
+            }
         }
-
-        addTarget(marcRulesNode, marcBibTypeId);
-        addTarget(marcRulesNode, marcBibValue);
     }
 
     private static void addTarget(JsonNode marcRulesNode, ObjectNode marcBibTypeId) {

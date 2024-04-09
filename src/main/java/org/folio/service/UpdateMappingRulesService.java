@@ -5,11 +5,10 @@ import static org.folio.FolioUpdateBibMappingRulesRamsonsApplication.exitWithMes
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.folio.client.AuthClient;
 import org.folio.client.SRMClient;
+import org.folio.exception.MarcRulesNotFoundException;
 import org.folio.model.Configuration;
 import org.folio.util.FileWorker;
 import org.folio.util.HttpWorker;
@@ -25,7 +24,7 @@ public class UpdateMappingRulesService {
     private SRMClient srmClient;
     private static final String MARC_BIB = "marc-bib";
 
-    public void start() {
+    public void start() throws MarcRulesNotFoundException {
         configuration = FileWorker.getConfiguration();
         var httpWorker = new HttpWorker(configuration);
         var authClient = new AuthClient(configuration, httpWorker);
@@ -38,7 +37,7 @@ public class UpdateMappingRulesService {
         exitWithMessage("Script execution completed");
     }
 
-    private void updateMappingRules() {
+    private void updateMappingRules() throws MarcRulesNotFoundException {
         JsonNode existingMappingRules = srmClient.retrieveMappingRules(MARC_BIB);
 
         MappingRulesUtil.updateMappingRules(rule, (ObjectNode) existingMappingRules);

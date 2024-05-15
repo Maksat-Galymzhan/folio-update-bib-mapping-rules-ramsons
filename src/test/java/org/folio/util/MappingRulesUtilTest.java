@@ -25,7 +25,7 @@ public class MappingRulesUtilTest {
     }
 
     @Test(expected = Exception.class)
-    public void should() throws MarcRulesNotFoundException {
+    public void shouldThrowExceptionIf010FieldMissing() throws MarcRulesNotFoundException {
         String rule = "010";
         ObjectNode baseVersion = FileWorker.getJsonObject(BASE_RULES_WITHOUT_010_FIELD_JSON);
 

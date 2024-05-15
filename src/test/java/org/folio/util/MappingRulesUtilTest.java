@@ -15,7 +15,7 @@ public class MappingRulesUtilTest {
 
 
     @Test
-    public void shouldUpdateCancelledLCCNIdentifierTo010Field() throws MarcRulesNotFoundException {
+    public void shouldUpdateCanceledLCCNIdentifierTo010Field() throws MarcRulesNotFoundException {
         ObjectNode rulesToCompare = FileWorker.getJsonObject(EXPECTED_RULES_JSON);
         ObjectNode baseVersion = FileWorker.getJsonObject(BASE_RULES_JSON);
 

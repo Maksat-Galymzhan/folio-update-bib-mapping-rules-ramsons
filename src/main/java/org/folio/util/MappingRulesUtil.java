@@ -32,7 +32,7 @@ public class MappingRulesUtil {
                 addTarget(marcRulesNode, marcBibTypeId);
                 addTarget(marcRulesNode, marcBibValue);
             } catch (Exception e) {
-                log.warn("Cannot update Cancelled LCCN field due to {}", e.getMessage());
+                log.warn("Cannot update Canceled LCCN field due to {}", e.getMessage());
             }
         }
     }

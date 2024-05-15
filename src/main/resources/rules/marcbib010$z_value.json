@@ -1,6 +1,6 @@
 {
   "target": "identifiers.value",
-  "description": "Type for Cancelled LCCN",
+  "description": "Type for Canceled LCCN",
   "subfield": [
     "z"
   ],
